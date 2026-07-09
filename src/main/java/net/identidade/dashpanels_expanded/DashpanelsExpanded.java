@@ -1,5 +1,9 @@
-package net.identidade.dashpanelscreate;
+package net.identidade.dashpanels_expanded;
 
+import net.identidade.dashpanels_expanded.item.PanelsExpandedModules;
+import net.identidade.dashpanels_expanded.item.PanelsExpandedCreativeModeTab;
+import net.identidade.dashpanels_expanded.item.PanelsExpandedItems;
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -15,14 +19,14 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(DashpanelsCreate.MOD_ID)
-public class DashpanelsCreate {
-    public static final String MOD_ID = "dashpanels_create";
+@Mod(DashpanelsExpanded.MOD_ID)
+public class DashpanelsExpanded {
+    public static final String MOD_ID = "dashpanels_expanded";
     public static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
-    public DashpanelsCreate(IEventBus modEventBus, ModContainer modContainer) {
+    public DashpanelsExpanded(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -31,11 +35,19 @@ public class DashpanelsCreate {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        PanelsExpandedCreativeModeTab.register(modEventBus);
+        PanelsExpandedItems.register(modEventBus);
+        PanelsExpandedModules.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    public static final ResourceLocation path(String path) {
+        return ResourceLocation.fromNamespaceAndPath(DashpanelsExpanded.MOD_ID, path);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

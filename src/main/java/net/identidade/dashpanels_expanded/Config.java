@@ -1,4 +1,4 @@
-package net.identidade.dashpanelscreate;
+package net.identidade.dashpanels_expanded;
 
 import java.util.List;
 
