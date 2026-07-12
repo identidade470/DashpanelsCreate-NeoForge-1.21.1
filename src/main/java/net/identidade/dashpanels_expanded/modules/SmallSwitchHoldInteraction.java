@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import moth.boxxed.panels.Dashpanels;
 import moth.boxxed.panels.api.module.interaction.ModuleHoldInteraction;
+import net.identidade.dashpanels_expanded.Config;
 import net.identidade.dashpanels_expanded.DashpanelsExpanded;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -30,8 +31,15 @@ public class SmallSwitchHoldInteraction extends ModuleHoldInteraction<SmallSwitc
     @Override
     public boolean activeMouseMove(double yaw, double pitch) {
         float oldValY = this.valY;
-        this.valY -= (float) (pitch / (double)25f);
-        this.valY = Math.clamp(Math.round(valY), -1, 1);
+        this.valY -= (float) (pitch / Config.SMALL_SWITCH_SENSIBILITY.getAsInt());
+
+        if (this.valY > 0.8f) {
+            this.valY = 1;
+        } else if (this.valY < -0.8f) {
+            this.valY = -1;
+        } else {
+            this.valY = 0;
+        }
         if (oldValY != valY) {
             this.update(new Integer[]{(int) (this.valY * 100f)});
         }
