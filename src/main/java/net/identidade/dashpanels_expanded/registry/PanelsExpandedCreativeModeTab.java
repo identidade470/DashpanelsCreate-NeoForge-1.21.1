@@ -1,4 +1,4 @@
-package net.identidade.dashpanels_expanded.item;
+package net.identidade.dashpanels_expanded.registry;
 
 import moth.boxxed.panels.Dashpanels;
 import net.identidade.dashpanels_expanded.DashpanelsExpanded;
@@ -13,13 +13,16 @@ public class PanelsExpandedCreativeModeTab {
         FancyTabSections.addSection(Dashpanels.path("dashpanels"),
                 new SectionTextured(
                         DashpanelsExpanded.path("modules"),
-                        Component.translatable("itemGroup.dashpanels_create.modules"),
+                        Component.translatable("itemGroup.dashpanels_expanded.modules"),
                         Dashpanels.path("textures/gui/fancy_tab_section/dashpanels.png"),
                         0xFFFFFFFF,
                         ConglomerateOfItems.create()
                                 .add(PanelsExpandedItems.SINGLE_LEVER)
                                 .add(PanelsExpandedItems.FLIP_SWITCH)
                                 .add(PanelsExpandedItems.CONTROL_VALVE)
+                                .add(PanelsExpandedItems.VALVE_SWITCH)
+                                .add(PanelsExpandedItems.SMALL_SWITCH)
+                                .add(PanelsExpandedItems.COPPER_VALVE)
                 ));
     }
 

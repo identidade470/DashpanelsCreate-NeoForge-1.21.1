@@ -3,6 +3,8 @@
   "values": [
     "dashpanels_create:single_lever",
     "dashpanels_create:flip_switch",
-    "dashpanels_create:control_valve"
+    "dashpanels_create:control_valve",
+    "dashpanels_create:valve_switch",
+    "dashpanels_create:small_switch"
   ]
 }

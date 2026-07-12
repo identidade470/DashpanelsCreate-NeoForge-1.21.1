@@ -8,7 +8,7 @@ import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
 import moth.boxxed.panels.content.panel.PanelBlockEntity;
 import moth.boxxed.panels.util.PreLoadedModel;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
-import net.identidade.dashpanels_expanded.item.PanelsExpandedModules;
+import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.HolderLookup;

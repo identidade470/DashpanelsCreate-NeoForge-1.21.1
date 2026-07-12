@@ -1,8 +1,8 @@
 package net.identidade.dashpanels_expanded;
 
-import net.identidade.dashpanels_expanded.item.PanelsExpandedModules;
-import net.identidade.dashpanels_expanded.item.PanelsExpandedCreativeModeTab;
-import net.identidade.dashpanels_expanded.item.PanelsExpandedItems;
+import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
+import net.identidade.dashpanels_expanded.registry.PanelsExpandedCreativeModeTab;
+import net.identidade.dashpanels_expanded.registry.PanelsExpandedItems;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
