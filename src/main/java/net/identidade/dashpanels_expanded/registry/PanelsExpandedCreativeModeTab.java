@@ -27,6 +27,6 @@ public class PanelsExpandedCreativeModeTab {
     }
 
     public static void register(IEventBus bus) {
-        addItems();
+
     }
 }
