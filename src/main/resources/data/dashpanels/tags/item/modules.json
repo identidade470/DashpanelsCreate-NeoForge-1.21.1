@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "dashpanels_create:single_lever",
-    "dashpanels_create:flip_switch",
-    "dashpanels_create:control_valve",
-    "dashpanels_create:valve_switch",
-    "dashpanels_create:small_switch",
-    "dashpanels_create:copper_valve"
+    "dashpanels_expanded:single_lever",
+    "dashpanels_expanded:flip_switch",
+    "dashpanels_expanded:control_valve",
+    "dashpanels_expanded:valve_switch",
+    "dashpanels_expanded:small_switch",
+    "dashpanels_expanded:copper_valve"
   ]
 }

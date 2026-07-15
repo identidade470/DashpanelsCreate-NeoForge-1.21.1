@@ -1,5 +1,6 @@
 package net.identidade.dashpanels_expanded.registry;
 
+import moth.boxxed.panels.Dashpanels;
 import moth.boxxed.panels.api.module.ModuleType;
 import moth.boxxed.panels.api.registry.ModulesRegistry;
 import net.identidade.dashpanels_expanded.DashpanelsExpanded;
@@ -25,6 +26,7 @@ public class PanelsExpandedModules {
             MODULES.register("valve_switch", () -> new ModuleType<>(ValveSwitchModule::new, PanelsExpandedItems.VALVE_SWITCH));
     public static final Supplier<ModuleType<SmallSwitchModule>> SMALL_SWITCH =
             MODULES.register("small_switch", () -> new ModuleType<>(SmallSwitchModule::new, PanelsExpandedItems.SMALL_SWITCH));
+
 
     public static void register(IEventBus bus) {
         MODULES.register(bus);
