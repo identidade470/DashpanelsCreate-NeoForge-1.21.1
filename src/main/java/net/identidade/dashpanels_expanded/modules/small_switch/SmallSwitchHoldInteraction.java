@@ -1,4 +1,4 @@
-package net.identidade.dashpanels_expanded.modules;
+package net.identidade.dashpanels_expanded.modules.small_switch;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;

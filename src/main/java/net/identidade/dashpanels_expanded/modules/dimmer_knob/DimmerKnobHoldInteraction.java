@@ -1,31 +1,32 @@
-package net.identidade.dashpanels_expanded.modules;
+package net.identidade.dashpanels_expanded.modules.dimmer_knob;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import moth.boxxed.panels.Dashpanels;
 import moth.boxxed.panels.api.module.interaction.ModuleHoldInteraction;
-import net.identidade.dashpanels_expanded.DashpanelsExpanded;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class CopperValveHoldInteraction extends ModuleHoldInteraction<CopperValveModule> {
-    private static final ResourceLocation VALVE_SPRITE = DashpanelsExpanded.path("module/control_valve");
-    private float val = 0.0F;
+public class DimmerKnobHoldInteraction extends ModuleHoldInteraction<DimmerKnobModule> {
+    private static final ResourceLocation KNOB_SPRITE = Dashpanels.path("module/knob");
+
+    private float val = 0f;
     private int oldAngle = 0;
     private int angle = 0;
 
     @Override
     public void start() {
-        this.angle = ((CopperValveModule)this.module).getAngle();
-        this.val = (float)this.angle / 360.0F;
+        this.angle = ((DimmerKnobModule) this.module).getAngle();
+        this.val = (float) this.angle / 180;
     }
 
     @Override
     public boolean activeMouseMove(double yaw, double pitch) {
-        this.val += (float)(yaw / (double)360.0F);
+        this.val += (float)(yaw / (double)180f);
         this.val = Math.clamp(this.val, 0.0F, 1.0F);
-        this.angle = Math.clamp((long)Math.round(this.val * 360.0F), 0, 360);
+        this.angle = Math.clamp((long)Math.round(this.val * 180f), 0, 180);
         if (this.oldAngle != this.angle) {
             this.update(new Integer[]{this.angle});
         }
@@ -43,7 +44,7 @@ public class CopperValveHoldInteraction extends ModuleHoldInteraction<CopperValv
         int y = centerY - 8;
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        graphics.blitSprite(VALVE_SPRITE, 289, 17, section * 17, 0, x, y, 17, 17);
+        graphics.blitSprite(KNOB_SPRITE, 289, 17, section * 17, 0, x, y, 17, 17);
         graphics.pose().pushPose();
         graphics.pose().translate((float)centerX, (float)(centerY + 12), 0.0F);
         graphics.pose().scale(0.5F, 0.5F, 0.5F);

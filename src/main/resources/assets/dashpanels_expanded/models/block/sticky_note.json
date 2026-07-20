@@ -1,0 +1,19 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "dashpanels_expanded:block/sticky_note",
+		"particle": "dashpanels_expanded:block/sticky_note"
+	},
+	"elements": [
+		{
+			"from": [0, 0.01, 0],
+			"to": [3, 0.01, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0.25, 0]},
+			"faces": {
+				"up": {"uv": [13, 12, 16, 16], "texture": "#0"},
+				"down": {"uv": [13, 12, 16, 16], "texture": "#0"}
+			}
+		}
+	]
+}

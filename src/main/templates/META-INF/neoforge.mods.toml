@@ -39,14 +39,14 @@ displayName="${mod_name}" #mandatory
 #logoFile="examplemod.png" #optional
 
 # A text field displayed in the mod UI
-#credits="" #optional
+credits="MrUranium - Push Button, Dimmer Knob, Fire Breaker textures and models" #optional
 
 # The authors of the mod, displayed in the mod UI (optional)
-#authors=""
+authors="Identidade470"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Example mod description.
+Addon for Dashpanels mod that adds more modules.
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.

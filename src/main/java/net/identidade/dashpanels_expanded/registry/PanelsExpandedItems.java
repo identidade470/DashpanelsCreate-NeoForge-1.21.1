@@ -21,6 +21,18 @@ public class PanelsExpandedItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> COPPER_VALVE = ITEMS.register("copper_valve",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> STICKY_NOTE = ITEMS.register("sticky_note",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SLIDER_SWITCH = ITEMS.register("slider_switch",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> FIRE_BREAKER = ITEMS.register("fire_breaker",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> DIMMER_KNOB = ITEMS.register("dimmer_knob",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PUSH_BUTTON = ITEMS.register("push_button",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SMALL_SEVEN_SEGMENT = ITEMS.register("small_seven_segment",
+            () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);

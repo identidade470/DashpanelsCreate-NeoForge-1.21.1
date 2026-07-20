@@ -1,0 +1,25 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "dashpanels_expanded:block/sticky_note",
+		"particle": "dashpanels_expanded:block/sticky_note"
+	},
+	"elements": [
+		{
+			"from": [6.5, 8.01, 6],
+			"to": [9.5, 8.01, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6.5, 8.25, 6]},
+			"faces": {
+				"up": {"uv": [13, 12, 16, 16], "texture": "#0"},
+				"down": {"uv": [13, 12, 16, 16], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation": [30, -135, 0],
+			"scale": [2, 2, 2]
+		}
+	}
+}

@@ -1,4 +1,4 @@
-package net.identidade.dashpanels_expanded.modules;
+package net.identidade.dashpanels_expanded.modules.copper_valve;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -30,21 +30,21 @@ import org.joml.Math;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class ControlValveModule extends Module implements IExternalUpdatable, IInput, IModuleLuaObject {
+public class CopperValveModule extends Module implements IExternalUpdatable, IInput, IModuleLuaObject {
     private float lastRenderAngle = 0.0F;
     private float renderAngle = 0.0F;
     private float renderHeight = 0.0F;
     private float lastRenderHeight = 0.0F;
     private int angle = 0;
 
-    public ControlValveModule(int x, int y) {
-        super((ModuleType) PanelsExpandedModules.CONTROL_VALVE.get(), x, y, 7, 7);
+    public CopperValveModule(int x, int y) {
+        super((ModuleType) PanelsExpandedModules.COPPER_VALVE.get(), x, y, 4, 4);
     }
 
     @Override
     public InteractionResult onUse(Level level, Player player) {
-        if (level.isClientSide && player.isLocalPlayer() && !PanelsExpandedHoldInteractions.CONTROL_VALVE.isActive()) {
-            PanelsExpandedHoldInteractions.CONTROL_VALVE.startHold(level, player, this);
+        if (level.isClientSide && player.isLocalPlayer() && !PanelsExpandedHoldInteractions.COPPER_VALVE.isActive()) {
+            PanelsExpandedHoldInteractions.COPPER_VALVE.startHold(level, player, this);
             return InteractionResult.SUCCESS;
         } else {
             return super.onUse(level, player);
@@ -81,18 +81,19 @@ public class ControlValveModule extends Module implements IExternalUpdatable, II
 
     @Override
     public void render(PanelBlockEntity panelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
+        PanelsExpandedPreloadedModels.COPPER_VALVE_BASE.render(poseStack, multiBufferSource, RenderType.solid(), i);
         poseStack.pushPose();
         poseStack.translate(0, Mth.lerp(v, lastRenderHeight, renderHeight), 0);
-        poseStack.rotateAround(Axis.YP.rotationDegrees(Mth.lerp(v, this.lastRenderAngle, this.renderAngle)), 0.22f, 0, 0.22f);
-        PanelsExpandedPreloadedModels.CONTROL_VALVE.render(poseStack, multiBufferSource, RenderType.solid(), i);
+        poseStack.rotateAround(Axis.YP.rotationDegrees(Mth.lerp(v, this.lastRenderAngle, this.renderAngle)), 0.125f, 0, 0.125f);
+        PanelsExpandedPreloadedModels.COPPER_VALVE_HANDLE.render(poseStack, multiBufferSource, RenderType.solid(), i);
         poseStack.popPose();
     }
 
     @Override
     public void renderOutline(PoseStack poseStack, MultiBufferSource bufferSource, float partialTick, int color) {
         poseStack.pushPose();
-        poseStack.translate(0f,0.125f,0f);
-        poseStack.rotateAround(Axis.YP.rotationDegrees(Mth.lerp(partialTick, this.lastRenderAngle, this.renderAngle)), 0.22F, 0.0F, 0.22f);
+        poseStack.translate(0f,0.05f,0f);
+        poseStack.rotateAround(Axis.YP.rotationDegrees(Mth.lerp(partialTick, this.lastRenderAngle, this.renderAngle)), 0.125F, 0.0F, 0.125f);
         poseStack.translate(0, Mth.lerp(partialTick, this.lastRenderHeight, this.renderHeight), 0);
         super.renderOutline(poseStack, bufferSource, partialTick, color);
         poseStack.popPose();
@@ -116,14 +117,14 @@ public class ControlValveModule extends Module implements IExternalUpdatable, II
 
     @Override
     public VoxelShape getShape() {
-        return Block.box(0,0,0,7,1,7);
+        return Block.box(0,0,0,4,1,4);
     }
 
     @Override
     public void getMethods(BiConsumer<String, ReturnMethod<?>> biConsumer) {
-        biConsumer.accept("getAngle", (IModuleLuaObject.ReturnMethod)(args) -> this.getAngle());
-        biConsumer.accept("getValue", (IModuleLuaObject.ReturnMethod)(args) -> this.getAnalog());
-        biConsumer.accept("setAngle", (IModuleLuaObject.ReturnMethod)(args) -> {
+        biConsumer.accept("getAngle", (ReturnMethod)(args) -> this.getAngle());
+        biConsumer.accept("getValue", (ReturnMethod)(args) -> this.getAnalog());
+        biConsumer.accept("setAngle", (ReturnMethod)(args) -> {
             if (args.count() != 1) {
                 return false;
             } else {

@@ -1,8 +1,7 @@
-package net.identidade.dashpanels_expanded.modules;
+package net.identidade.dashpanels_expanded.modules.control_valve;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import moth.boxxed.panels.Dashpanels;
 import moth.boxxed.panels.api.module.interaction.ModuleHoldInteraction;
 import net.identidade.dashpanels_expanded.DashpanelsExpanded;
 import net.minecraft.client.Minecraft;
@@ -10,46 +9,45 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class ValveSwitchHoldInteraction extends ModuleHoldInteraction<ValveSwitchModule> {
-
-    private static final ResourceLocation SWITCH_SPRITE = DashpanelsExpanded.path("module/valve_switch");
+public class ControlValveHoldInteraction extends ModuleHoldInteraction<ControlValveModule> {
+    private static final ResourceLocation VALVE_SPRITE = DashpanelsExpanded.path("module/control_valve");
     private float val = 0.0F;
-    private int oldSignal = 0;
-    private int signal = 0;
+    private int oldAngle = 0;
+    private int angle = 0;
 
     @Override
     public void start() {
-        this.signal = ((ValveSwitchModule)this.module).getSignal();
-        this.val = (float)this.signal / 15.0F;
+        this.angle = ((ControlValveModule)this.module).getAngle();
+        this.val = (float)this.angle / 360.0F;
     }
 
     @Override
     public boolean activeMouseMove(double yaw, double pitch) {
-        this.val -= (float)(pitch / (double)180.0F);
+        this.val += (float)(yaw / (double)360.0F);
         this.val = Math.clamp(this.val, 0.0F, 1.0F);
-        this.signal = Math.clamp((long)Math.round(this.val * 15.0F), 0, 15);
-        if (this.oldSignal != this.signal) {
-            this.update(new Integer[]{this.signal});
+        this.angle = Math.clamp((long)Math.round(this.val * 360.0F), 0, 360);
+        if (this.oldAngle != this.angle) {
+            this.update(new Integer[]{this.angle});
         }
 
-        this.oldSignal = this.signal;
+        this.oldAngle = this.angle;
         return true;
     }
 
     @Override
     public void renderGui(GuiGraphics graphics, float partialTick) {
-        int section = this.signal;
+        int section = Math.round(Mth.map((float)this.angle, 0.0F, 360.0F, 0.0F, 16.0F));
         int centerX = graphics.guiWidth() / 2;
         int centerY = graphics.guiHeight() / 2;
         int x = centerX - 9;
         int y = centerY - 8;
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        graphics.blitSprite(SWITCH_SPRITE, 272, 17, section * 17, 0, x, y, 17, 17);
+        graphics.blitSprite(VALVE_SPRITE, 289, 17, section * 17, 0, x, y, 17, 17);
         graphics.pose().pushPose();
         graphics.pose().translate((float)centerX, (float)(centerY + 12), 0.0F);
         graphics.pose().scale(0.5F, 0.5F, 0.5F);
-        graphics.drawCenteredString(Minecraft.getInstance().font, String.valueOf(this.signal), 0, 0, -1426063361);
+        graphics.drawCenteredString(Minecraft.getInstance().font, String.valueOf(this.angle), 0, 0, -1426063361);
         graphics.pose().popPose();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();

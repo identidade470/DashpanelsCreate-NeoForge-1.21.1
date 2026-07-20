@@ -6,6 +6,12 @@
   "item.dashpanels_expanded.valve_switch": "Valve Switch",
   "item.dashpanels_expanded.small_switch": "Small Switch",
   "item.dashpanels_expanded.copper_valve": "Copper Valve",
+  "item.dashpanels_expanded.sticky_note": "Sticky Note",
+  "item.dashpanels_expanded.slider_switch": "Slider Switch",
+  "item.dashpanels_expanded.fire_breaker": "Fire Breaker",
+  "item.dashpanels_expanded.push_button": "Push Button",
+  "item.dashpanels_expanded.dimmer_knob": "Dimmer Knob",
+  "item.dashpanels_expanded.small_seven_segment": "Small Seven Segment",
 
   "dashpanels_expanded.configuration.smallSwitchSensibility": "Small Switch Sensibility"
 

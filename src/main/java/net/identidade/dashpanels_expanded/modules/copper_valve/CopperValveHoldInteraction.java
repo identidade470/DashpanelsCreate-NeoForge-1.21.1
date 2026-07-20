@@ -1,4 +1,4 @@
-package net.identidade.dashpanels_expanded.modules;
+package net.identidade.dashpanels_expanded.modules.copper_valve;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class ControlValveHoldInteraction extends ModuleHoldInteraction<ControlValveModule> {
+public class CopperValveHoldInteraction extends ModuleHoldInteraction<CopperValveModule> {
     private static final ResourceLocation VALVE_SPRITE = DashpanelsExpanded.path("module/control_valve");
     private float val = 0.0F;
     private int oldAngle = 0;
@@ -17,7 +17,7 @@ public class ControlValveHoldInteraction extends ModuleHoldInteraction<ControlVa
 
     @Override
     public void start() {
-        this.angle = ((ControlValveModule)this.module).getAngle();
+        this.angle = ((CopperValveModule)this.module).getAngle();
         this.val = (float)this.angle / 360.0F;
     }
 

@@ -6,6 +6,12 @@
     "dashpanels_expanded:control_valve",
     "dashpanels_expanded:valve_switch",
     "dashpanels_expanded:small_switch",
-    "dashpanels_expanded:copper_valve"
+    "dashpanels_expanded:copper_valve",
+    "dashpanels_expanded:sticky_note",
+    "dashpanels_expanded:slider_switch",
+    "dashpanels_expanded:fire_breaker",
+    "dashpanels_expanded:push_button",
+    "dashpanels_expanded:dimmer_knob",
+    "dashpanels_expanded:small_seven_segment"
   ]
 }
