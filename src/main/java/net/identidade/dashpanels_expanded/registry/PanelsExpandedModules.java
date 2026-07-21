@@ -4,13 +4,17 @@ import moth.boxxed.panels.api.module.ModuleType;
 import moth.boxxed.panels.api.registry.ModulesRegistry;
 import net.identidade.dashpanels_expanded.DashpanelsExpanded;
 import net.identidade.dashpanels_expanded.modules.*;
+import net.identidade.dashpanels_expanded.modules.brake_lever.BrakeLeverModule;
 import net.identidade.dashpanels_expanded.modules.control_valve.ControlValveModule;
 import net.identidade.dashpanels_expanded.modules.copper_valve.CopperValveModule;
+import net.identidade.dashpanels_expanded.modules.dial.DialModule;
 import net.identidade.dashpanels_expanded.modules.dimmer_knob.DimmerKnobModule;
+import net.identidade.dashpanels_expanded.modules.gearshift_lever.GearshiftLeverModule;
 import net.identidade.dashpanels_expanded.modules.push_button.PushButtonModule;
 import net.identidade.dashpanels_expanded.modules.single_lever.SingleLeverModule;
 import net.identidade.dashpanels_expanded.modules.slider_switch.SliderSwitchModule;
 import net.identidade.dashpanels_expanded.modules.small_switch.SmallSwitchModule;
+import net.identidade.dashpanels_expanded.modules.spring_button.SpringButtonModule;
 import net.identidade.dashpanels_expanded.modules.valve_switch.ValveSwitchModule;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -45,6 +49,14 @@ public class PanelsExpandedModules {
             MODULES.register("dimmer_knob", () -> new ModuleType<>(DimmerKnobModule::new, PanelsExpandedItems.DIMMER_KNOB));
     public static final Supplier<ModuleType<SmallSevenSegmentModule>> SMALL_SEVEN_SEGMENT =
             MODULES.register("small_seven_segment", () -> new ModuleType<>(SmallSevenSegmentModule::new, PanelsExpandedItems.SMALL_SEVEN_SEGMENT));
+    public static final Supplier<ModuleType<BrakeLeverModule>> BRAKE_LEVER =
+            MODULES.register("brake_lever", () -> new ModuleType<>(BrakeLeverModule::new, PanelsExpandedItems.BRAKE_LEVER));
+    public static final Supplier<ModuleType<SpringButtonModule>> SPRING_BUTTON =
+            MODULES.register("spring_button", () -> new ModuleType<>(SpringButtonModule::new, PanelsExpandedItems.SPRING_BUTTON));
+    public static final Supplier<ModuleType<GearshiftLeverModule>> GEARSHIFT_LEVER =
+            MODULES.register("gearshift_lever", () -> new ModuleType<>(GearshiftLeverModule::new, PanelsExpandedItems.GEARSHIFT_LEVER));
+    public static final Supplier<ModuleType<DialModule>> DIAL =
+            MODULES.register("dial", () -> new ModuleType<>(DialModule::new, PanelsExpandedItems.DIAL));
 
 
     public static void register(IEventBus bus) {

@@ -75,7 +75,7 @@ public class SingleLeverModule extends Module implements IExternalUpdatable, IIn
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
         this.lastRenderSignal = this.renderSignal;
         this.lastIndicatorRender = this.indicatorRender;
-        this.renderSignal = org.joml.Math.lerp(this.renderSignal, Mth.map((float)this.signal, 0.0F, 15.0F, 0.0F, 0.F), 0.5F);
+        this.renderSignal = org.joml.Math.lerp(this.renderSignal, Mth.map((float)this.signal, 0.0F, 15.0F, 0.0F, 0.25F), 0.5F);
         this.indicatorRender = Math.lerp(this.indicatorRender, Mth.map((float)this.signal, 0.0F, 15.0F, 0.0F, 0.31F), 0.15F);
     }
 

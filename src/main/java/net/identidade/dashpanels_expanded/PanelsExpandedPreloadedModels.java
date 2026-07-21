@@ -26,6 +26,14 @@ public class PanelsExpandedPreloadedModels {
            PUSH_BUTTON_BASE = regular("push_button/base"),
            PUSH_BUTTON_BUTTON = regular("push_button/button"),
            SMALL_SEVEN_SEGMENT = regular("small_seven_segment"),
+           BRAKE_LEVER_BASE = regular("brake_lever/base"),
+           BRAKE_LEVER_HANDLE = regular("brake_lever/handle"),
+           SPRING_BUTTON_BASE = regular("spring_button/base"),
+           SPRING_BUTTON_BUTTON = regular("spring_button/button"),
+           GEARSHIFT_LEVER_BASE = regular("gearshift_lever/base"),
+           GEARSHIFT_LEVER_HANDLE = regular("gearshift_lever/handle"),
+           DIAL_BASE = regular("dial/base"),
+           DIAL_TOP = regular("dial/top"),
            STICKY_NOTE = regular("sticky_note");
 
     private static PreLoadedModel regular(String name) {

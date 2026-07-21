@@ -12,6 +12,10 @@
   "item.dashpanels_expanded.push_button": "Push Button",
   "item.dashpanels_expanded.dimmer_knob": "Dimmer Knob",
   "item.dashpanels_expanded.small_seven_segment": "Small Seven Segment",
+  "item.dashpanels_expanded.spring_button": "Spring Button",
+  "item.dashpanels_expanded.brake_lever": "Brake Lever",
+  "item.dashpanels_expanded.gearshift_lever": "Gearshift Lever",
+  "item.dashpanels_expanded.dial": "Dial",
 
   "dashpanels_expanded.configuration.smallSwitchSensibility": "Small Switch Sensibility"
 

@@ -12,6 +12,10 @@
     "dashpanels_expanded:fire_breaker",
     "dashpanels_expanded:push_button",
     "dashpanels_expanded:dimmer_knob",
-    "dashpanels_expanded:small_seven_segment"
+    "dashpanels_expanded:small_seven_segment",
+    "dashpanels_expanded:brake_lever",
+    "dashpanels_expanded:spring_button",
+    "dashpanels_expanded:gearshift_lever",
+    "dashpanels_expanded:dial"
   ]
 }

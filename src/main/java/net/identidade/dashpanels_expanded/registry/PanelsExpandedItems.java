@@ -33,6 +33,14 @@ public class PanelsExpandedItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> SMALL_SEVEN_SEGMENT = ITEMS.register("small_seven_segment",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> BRAKE_LEVER = ITEMS.register("brake_lever",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SPRING_BUTTON = ITEMS.register("spring_button",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> GEARSHIFT_LEVER = ITEMS.register("gearshift_lever",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> DIAL = ITEMS.register("dial",
+            () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);
