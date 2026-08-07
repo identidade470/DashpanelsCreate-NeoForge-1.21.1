@@ -37,7 +37,7 @@ public class SliderSwitchModule extends Module implements IInput, IModuleLuaObje
     private int signal = 0;
 
     public SliderSwitchModule(int x, int y) {
-        super(PanelsExpandedModules.SLIDER_SWITCH.get(), x, y, 2,8);
+        super(PanelsExpandedModules.SLIDER_SWITCH.get(), x, y);
     }
 
     public int getSignal() {
@@ -46,7 +46,7 @@ public class SliderSwitchModule extends Module implements IInput, IModuleLuaObje
 
     @Override
     public int getAnalog() {
-        return 0;
+        return this.signal;
     }
 
     @Override
@@ -72,21 +72,21 @@ public class SliderSwitchModule extends Module implements IInput, IModuleLuaObje
     }
 
     @Override
-    public InteractionResult onUse(Level level, Player player) {
+    public InteractionResult onUse(ModuleHitResult hitResult, Level level, Player player) {
         if (level.isClientSide && player.isLocalPlayer() && !PanelsExpandedHoldInteractions.SLIDER_SWITCH.isActive()) {
             PanelsExpandedHoldInteractions.SLIDER_SWITCH.startHold(level, player, this);
             return InteractionResult.SUCCESS;
         } else {
-            return super.onUse(level, player);
+            return super.onUse(hitResult, level, player);
         }
     }
 
     @Override
     public void render(AbstractPanelBlockEntity abstractPanelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
-        PanelsExpandedPreloadedModels.SLIDER_SWITCH_BASE.render(poseStack, multiBufferSource, RenderType.solid(), i);
+        PanelsExpandedPreloadedModels.SLIDER_SWITCH_BASE.render(poseStack, RenderType.solid(), i);
         poseStack.pushPose();
         poseStack.translate(0.0F, 0.0F, Mth.lerp(v, this.lastRenderSignal, this.renderSignal));
-        PanelsExpandedPreloadedModels.SLIDER_SWITCH_SLIDER.render(poseStack, multiBufferSource, RenderType.solid(), i);
+        PanelsExpandedPreloadedModels.SLIDER_SWITCH_SLIDER.render(poseStack, RenderType.solid(), i);
         poseStack.popPose();
     }
 
@@ -124,6 +124,6 @@ public class SliderSwitchModule extends Module implements IInput, IModuleLuaObje
     public void update(ServerPlayer serverPlayer, CompoundTag compoundTag, HolderLookup.Provider provider) {
         this.signal = compoundTag.getInt("signal");
         float f = (float)(this.signal + 15) / 15.0F;
-        this.parentBlockEntity.getLevel().playSound((Player)null, this.getParentPos(), SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.1F, f);
+        this.parentBlockEntity.getLevel().playSound(null, this.getParentPos(), SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.1F, f);
     }
 }
