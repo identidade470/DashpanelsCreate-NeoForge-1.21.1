@@ -1,0 +1,22 @@
+{
+  "itemGroup.dashpanels_expanded.modules": "Dashpanels: Expanded",
+  "item.dashpanels_expanded.flip_switch": "Выключатель",
+  "item.dashpanels_expanded.single_lever": "Слайдер с длинной ручкой",
+  "item.dashpanels_expanded.control_valve": "Вентиль",
+  "item.dashpanels_expanded.valve_switch": "Кран",
+  "item.dashpanels_expanded.small_switch": "Маленький переключатель",
+  "item.dashpanels_expanded.copper_valve": "Медный вентиль",
+  "item.dashpanels_expanded.sticky_note": "Стикер",
+  "item.dashpanels_expanded.slider_switch": "Рукоятка",
+  "item.dashpanels_expanded.fire_breaker": "Пожарный рычаг",
+  "item.dashpanels_expanded.push_button": "Нажимаемая кнопка",
+  "item.dashpanels_expanded.dimmer_knob": "Регулятор",
+  "item.dashpanels_expanded.small_seven_segment": "Маленький 7-сегментный дисплей",
+  "item.dashpanels_expanded.spring_button": "Пружинистая кнопка",
+  "item.dashpanels_expanded.brake_lever": "Рычаг тормоза",
+  "item.dashpanels_expanded.gearshift_lever": "Коробка передач",
+  "item.dashpanels_expanded.dial": "Диск набора",
+
+  "dashpanels_expanded.configuration.smallSwitchSensibility": "Чувствительность маленького переключателя"
+
+}
