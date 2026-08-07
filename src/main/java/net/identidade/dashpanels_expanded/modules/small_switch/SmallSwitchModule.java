@@ -3,10 +3,11 @@ package net.identidade.dashpanels_expanded.modules.small_switch;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import moth.boxxed.panels.api.module.IExternalUpdatable;
-import moth.boxxed.panels.api.module.IMultiInput;
+import moth.boxxed.panels.api.module.io.IMultiInput;
 import moth.boxxed.panels.api.module.Module;
+import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
-import moth.boxxed.panels.content.panel.PanelBlockEntity;
+import moth.boxxed.panels.util.PolyVoxel;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedHoldInteractions;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
@@ -15,6 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -73,7 +75,7 @@ public class SmallSwitchModule extends Module implements IExternalUpdatable, IMu
     }
 
     @Override
-    public void render(PanelBlockEntity panelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
+    public void render(AbstractPanelBlockEntity abstractPanelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
         float angleY = Mth.map(Mth.lerp(v, this.lastAngleRender, this.angleRender), -1.0F, 1.0F, -30f, 30f);
 
         PanelsExpandedPreloadedModels.SMALL_SWITCH_BASE.render(poseStack, multiBufferSource, RenderType.solid(), i);
@@ -84,13 +86,17 @@ public class SmallSwitchModule extends Module implements IExternalUpdatable, IMu
     }
 
     @Override
-    public VoxelShape getShape() {
+    public VoxelShape getVoxelShape() {
         return Block.box(0.25,0,0.25,1.75,1,1.75);
+    }
+    @Override
+    public PolyVoxel getShape() {
+        return new PolyVoxel(0, 0, 1, 1);
     }
 
     @Override
-    public void setNum(List<Integer> list) {
-        this.stickY = (float) (Integer) list.getFirst() /100f;
+    public void update(ServerPlayer serverPlayer, CompoundTag compoundTag, HolderLookup.Provider provider) {
+        this.stickY = compoundTag.getFloat("y") /100f;
         this.parentBlockEntity.getLevel().playSound((Player)null, this.getParentPos(), SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.1F, .9f);
     }
 

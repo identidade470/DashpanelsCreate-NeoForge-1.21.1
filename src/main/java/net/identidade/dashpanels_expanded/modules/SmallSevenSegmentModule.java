@@ -2,12 +2,13 @@ package net.identidade.dashpanels_expanded.modules;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import moth.boxxed.panels.api.module.IOutput;
+import moth.boxxed.panels.api.module.io.IOutput;
 import moth.boxxed.panels.api.module.Module;
 import moth.boxxed.panels.api.module.ModuleType;
+import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
-import moth.boxxed.panels.content.panel.PanelBlockEntity;
 import moth.boxxed.panels.index.PanelPreloadedModels;
+import moth.boxxed.panels.util.PolyVoxel;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
 import net.minecraft.client.Minecraft;
@@ -109,7 +110,7 @@ public class SmallSevenSegmentModule extends Module implements IModuleLuaObject,
     }
 
     @Override
-    public void render(PanelBlockEntity panelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
+    public void render(AbstractPanelBlockEntity abstractPanelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
         poseStack.pushPose();
         poseStack.translate(0.0F, -0.03125F, 0.0F);
         PanelsExpandedPreloadedModels.SMALL_SEVEN_SEGMENT.render(poseStack, multiBufferSource, RenderType.solid(), i);
@@ -129,7 +130,12 @@ public class SmallSevenSegmentModule extends Module implements IModuleLuaObject,
     }
 
     @Override
-    public VoxelShape getShape() {
+    public VoxelShape getVoxelShape() {
         return Block.box(0,0,0,6, .5f, 2);
+    }
+
+    @Override
+    public PolyVoxel getShape() {
+        return new PolyVoxel(0, 0, 6, 2);
     }
 }

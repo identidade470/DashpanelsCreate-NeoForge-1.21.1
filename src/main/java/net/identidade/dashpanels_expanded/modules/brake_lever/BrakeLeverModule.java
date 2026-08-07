@@ -3,11 +3,11 @@ package net.identidade.dashpanels_expanded.modules.brake_lever;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import moth.boxxed.panels.api.module.IExternalUpdatable;
-import moth.boxxed.panels.api.module.IInput;
 import moth.boxxed.panels.api.module.Module;
 import moth.boxxed.panels.api.module.ModuleType;
+import moth.boxxed.panels.api.module.io.IInput;
+import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
-import moth.boxxed.panels.content.panel.PanelBlockEntity;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedHoldInteractions;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -63,33 +64,7 @@ public class BrakeLeverModule extends Module implements IExternalUpdatable, IInp
     }
 
     @Override
-    public boolean loadData(CompoundTag tag, HolderLookup.Provider registries) {
-        this.signal = tag.getInt("signal");
-        this.renderSignal = tag.getFloat("renderSignal");
-        this.lastRenderSignal = tag.getFloat("lastRenderSignal");
-        return super.loadData(tag, registries);
-    }
-
-    @Override
-    public void setNum(List<Integer> list) {
-        this.signal = (Integer) list.getFirst();
-        float f = (float)(this.signal + 15) / 15.0F;
-        this.parentBlockEntity.getLevel().playSound((Player)null, this.getParentPos(), SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.1F, f);
-    }
-
-    @Override
-    public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        this.lastRenderSignal = this.renderSignal;
-        this.renderSignal = Math.lerp(this.renderSignal, this.signal, 0.75f);
-    }
-
-    @Override
-    public int getAnalog() {
-        return this.signal;
-    }
-
-    @Override
-    public void render(PanelBlockEntity panelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
+    public void render(AbstractPanelBlockEntity abstractPanelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
         float newSignal = Mth.lerp(v, this.lastRenderSignal, this.renderSignal);
         float angle = (newSignal / 15) * 90f;
 
@@ -101,12 +76,38 @@ public class BrakeLeverModule extends Module implements IExternalUpdatable, IInp
     }
 
     @Override
-    public VoxelShape getShape() {
+    public boolean loadData(CompoundTag tag, HolderLookup.Provider registries) {
+        this.signal = tag.getInt("signal");
+        this.renderSignal = tag.getFloat("renderSignal");
+        this.lastRenderSignal = tag.getFloat("lastRenderSignal");
+        return super.loadData(tag, registries);
+    }
+
+    @Override
+    public void tick(Level level, BlockPos blockPos, BlockState blockState) {
+        this.lastRenderSignal = this.renderSignal;
+        this.renderSignal = Math.lerp(this.renderSignal, this.signal, 0.75f);
+    }
+
+    @Override
+    public VoxelShape getVoxelShape() {
         return Block.box(0,0,0, 4,4,5);
+    }
+
+    @Override
+    public int getAnalog() {
+        return this.signal;
     }
 
     @Override
     public void getMethods(BiConsumer<String, ReturnMethod<?>> biConsumer) {
         biConsumer.accept("getSignal", (IModuleLuaObject.ReturnMethod) (args) -> this.getSignal());
+    }
+
+    @Override
+    public void update(ServerPlayer serverPlayer, CompoundTag compoundTag, HolderLookup.Provider provider) {
+        this.signal = compoundTag.getInt("signal");
+        float f = (float)(this.signal + 15) / 15.0F;
+        this.parentBlockEntity.getLevel().playSound((Player)null, this.getParentPos(), SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.1F, f);
     }
 }

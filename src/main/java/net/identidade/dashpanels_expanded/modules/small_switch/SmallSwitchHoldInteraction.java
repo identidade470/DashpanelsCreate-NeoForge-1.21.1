@@ -8,6 +8,7 @@ import net.identidade.dashpanels_expanded.Config;
 import net.identidade.dashpanels_expanded.DashpanelsExpanded;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -41,7 +42,9 @@ public class SmallSwitchHoldInteraction extends ModuleHoldInteraction<SmallSwitc
             this.valY = 0;
         }
         if (oldValY != valY) {
-            this.update(new Integer[]{(int) (this.valY * 100f)});
+            CompoundTag tag = new CompoundTag();
+            tag.putFloat("y", this.valY * 100);
+            this.update(tag);
         }
         return true;
     }

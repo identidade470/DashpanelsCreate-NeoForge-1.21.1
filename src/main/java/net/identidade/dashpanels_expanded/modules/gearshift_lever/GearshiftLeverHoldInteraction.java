@@ -6,6 +6,7 @@ import moth.boxxed.panels.Dashpanels;
 import moth.boxxed.panels.api.module.interaction.ModuleHoldInteraction;
 import net.identidade.dashpanels_expanded.DashpanelsExpanded;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -44,7 +45,10 @@ public class GearshiftLeverHoldInteraction extends ModuleHoldInteraction<Gearshi
         this.valX = Math.clamp(this.valX, -1, 0);
 
         if (oldValX != this.valX || oldValY != this.valY) {
-            this.update(new Integer[]{(int) (this.valX * 100), (int) (this.valY * 100)});
+            CompoundTag tag = new CompoundTag();
+            tag.putFloat("x", this.valX);
+            tag.putFloat("y", this.valY);
+            this.update(tag);
         }
 
         return true;

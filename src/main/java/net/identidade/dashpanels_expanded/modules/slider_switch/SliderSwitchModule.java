@@ -3,8 +3,10 @@ package net.identidade.dashpanels_expanded.modules.slider_switch;
 import com.mojang.blaze3d.vertex.PoseStack;
 import moth.boxxed.panels.api.module.*;
 import moth.boxxed.panels.api.module.Module;
+import moth.boxxed.panels.api.module.io.IInput;
+import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
-import moth.boxxed.panels.content.panel.PanelBlockEntity;
+import moth.boxxed.panels.util.PolyVoxel;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedHoldInteractions;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
@@ -13,6 +15,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -79,7 +82,7 @@ public class SliderSwitchModule extends Module implements IInput, IModuleLuaObje
     }
 
     @Override
-    public void render(PanelBlockEntity panelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
+    public void render(AbstractPanelBlockEntity abstractPanelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
         PanelsExpandedPreloadedModels.SLIDER_SWITCH_BASE.render(poseStack, multiBufferSource, RenderType.solid(), i);
         poseStack.pushPose();
         poseStack.translate(0.0F, 0.0F, Mth.lerp(v, this.lastRenderSignal, this.renderSignal));
@@ -87,11 +90,14 @@ public class SliderSwitchModule extends Module implements IInput, IModuleLuaObje
         poseStack.popPose();
     }
 
-
+    @Override
+    public VoxelShape getVoxelShape() {
+        return Block.box(.25,0,0,1.75,.5,8);
+    }
 
     @Override
-    public VoxelShape getShape() {
-        return Block.box(.25,0,0,1.75,.5,8);
+    public PolyVoxel getShape() {
+        return new PolyVoxel(0, 0, 1, 8);
     }
 
     @Override
@@ -115,8 +121,8 @@ public class SliderSwitchModule extends Module implements IInput, IModuleLuaObje
     }
 
     @Override
-    public void setNum(List<Integer> list) {
-        this.signal = (Integer)list.getFirst();
+    public void update(ServerPlayer serverPlayer, CompoundTag compoundTag, HolderLookup.Provider provider) {
+        this.signal = compoundTag.getInt("signal");
         float f = (float)(this.signal + 15) / 15.0F;
         this.parentBlockEntity.getLevel().playSound((Player)null, this.getParentPos(), SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.1F, f);
     }

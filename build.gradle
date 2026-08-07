@@ -140,7 +140,7 @@ dependencies {
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"
     // implementation "blank:coolmod-${mc_version}:${coolmod_version}"
-    implementation "maven.modrinth:dashpanels:1.5+neoforge1.21.1"
+    implementation "maven.modrinth:dashpanels:2.1+neoforge1.21.1"
     localRuntime "maven.modrinth:gu7yAYhd:8XEJbAee"
 
     // Example mod dependency using a file as dependency

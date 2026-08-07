@@ -3,11 +3,11 @@ package net.identidade.dashpanels_expanded.modules.control_valve;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import moth.boxxed.panels.api.module.IExternalUpdatable;
-import moth.boxxed.panels.api.module.IInput;
+import moth.boxxed.panels.api.module.io.IInput;
 import moth.boxxed.panels.api.module.Module;
 import moth.boxxed.panels.api.module.ModuleType;
+import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
-import moth.boxxed.panels.content.panel.PanelBlockEntity;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedHoldInteractions;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -80,7 +81,7 @@ public class ControlValveModule extends Module implements IExternalUpdatable, II
     }
 
     @Override
-    public void render(PanelBlockEntity panelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
+    public void render(AbstractPanelBlockEntity abstractPanelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
         poseStack.pushPose();
         poseStack.translate(0, Mth.lerp(v, lastRenderHeight, renderHeight), 0);
         poseStack.rotateAround(Axis.YP.rotationDegrees(Mth.lerp(v, this.lastRenderAngle, this.renderAngle)), 0.22f, 0, 0.22f);
@@ -103,8 +104,8 @@ public class ControlValveModule extends Module implements IExternalUpdatable, II
     }
 
     @Override
-    public void setNum(List<Integer> list) {
-        this.angle = (Integer)list.getFirst();
+    public void update(ServerPlayer serverPlayer, CompoundTag compoundTag, HolderLookup.Provider provider) {
+        this.angle = compoundTag.getInt("angle");
         float f = (float)(this.angle + 360) / 360.0F;
         this.parentBlockEntity.getLevel().playSound((Player)null, this.getParentPos(), SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS, 0.1F, f);
     }
@@ -115,7 +116,7 @@ public class ControlValveModule extends Module implements IExternalUpdatable, II
     }
 
     @Override
-    public VoxelShape getShape() {
+    public VoxelShape getVoxelShape() {
         return Block.box(0,0,0,7,1,7);
     }
 

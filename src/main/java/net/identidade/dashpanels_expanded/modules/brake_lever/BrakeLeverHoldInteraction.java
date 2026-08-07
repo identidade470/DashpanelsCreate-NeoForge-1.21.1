@@ -7,6 +7,7 @@ import moth.boxxed.panels.api.module.interaction.ModuleHoldInteraction;
 import net.identidade.dashpanels_expanded.modules.slider_switch.SliderSwitchModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -31,7 +32,9 @@ public class BrakeLeverHoldInteraction extends ModuleHoldInteraction<BrakeLeverM
         this.val = Math.clamp(this.val, 0.0F, 1.0F);
         this.signal = Math.clamp((long)Math.round(this.val * 15.0F), 0, 15);
         if (this.oldSignal != this.signal) {
-            this.update(new Integer[]{this.signal});
+            CompoundTag tag = new CompoundTag();
+            tag.putInt("signal", this.signal);
+            this.update(tag);
         }
 
         this.oldSignal = this.signal;

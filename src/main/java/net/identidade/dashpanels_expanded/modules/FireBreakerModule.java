@@ -1,11 +1,12 @@
 package net.identidade.dashpanels_expanded.modules;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import moth.boxxed.panels.api.module.IInput;
+import moth.boxxed.panels.api.module.io.IInput;
 import moth.boxxed.panels.api.module.Module;
 import moth.boxxed.panels.api.module.ModuleType;
+import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
-import moth.boxxed.panels.content.panel.PanelBlockEntity;
+import moth.boxxed.panels.util.PolyVoxel;
 import moth.boxxed.panels.util.PreLoadedModel;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
@@ -58,14 +59,19 @@ public class FireBreakerModule extends Module implements IInput, IModuleLuaObjec
     }
 
     @Override
-    public void render(PanelBlockEntity panelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
+    public void render(AbstractPanelBlockEntity abstractPanelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
         PreLoadedModel renderedModel = activated? PanelsExpandedPreloadedModels.FIRE_BREAKER_ON:PanelsExpandedPreloadedModels.FIRE_BREAKER_OFF;
         renderedModel.render(poseStack, multiBufferSource, RenderType.solid(), i);
     }
 
     @Override
-    public VoxelShape getShape() {
+    public VoxelShape getVoxelShape() {
         return Block.box(0,0,0,4,1,6);
+    }
+
+    @Override
+    public PolyVoxel getShape() {
+        return new PolyVoxel(0, 0, 4, 6);
     }
 
     @Override

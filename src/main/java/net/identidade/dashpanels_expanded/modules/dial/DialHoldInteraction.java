@@ -7,6 +7,7 @@ import moth.boxxed.panels.api.module.interaction.ModuleHoldInteraction;
 import net.identidade.dashpanels_expanded.DashpanelsExpanded;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -28,7 +29,9 @@ public class DialHoldInteraction extends ModuleHoldInteraction<DialModule> {
         this.val = Math.clamp(this.val, 0.0F, 1.0F);
         this.angle = Math.clamp(Math.round((this.val * 300f) / 60) * 60, 0, 300);
         if (this.oldAngle != this.angle) {
-            this.update(new Integer[]{this.angle});
+            CompoundTag tag = new CompoundTag();
+            tag.putInt("angle", this.angle);
+            this.update(tag);
         }
 
         this.oldAngle = this.angle;

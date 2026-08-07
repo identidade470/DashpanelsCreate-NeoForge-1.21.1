@@ -3,8 +3,10 @@ package net.identidade.dashpanels_expanded.modules.gearshift_lever;
 import com.mojang.blaze3d.vertex.PoseStack;
 import moth.boxxed.panels.api.module.*;
 import moth.boxxed.panels.api.module.Module;
+import moth.boxxed.panels.api.module.io.IMultiInput;
+import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
-import moth.boxxed.panels.content.panel.PanelBlockEntity;
+import moth.boxxed.panels.util.PolyVoxel;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedHoldInteractions;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
@@ -13,6 +15,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -43,11 +46,13 @@ public class GearshiftLeverModule extends Module implements IMultiInput, IExtern
     }
 
     @Override
-    public void setNum(List<Integer> list) {
-        if (list.size() == 2) {
-            this.handleX = (float) (Integer) list.getFirst() / 100f;
-            this.handleY = (float) (Integer) list.get(1) / 100f;
-        }
+    public void update(ServerPlayer serverPlayer, CompoundTag compoundTag, HolderLookup.Provider provider) {
+        this.handleX = compoundTag.getFloat("x");
+        this.handleY = compoundTag.getFloat("y");
+
+        System.out.println(this.handleX);
+        System.out.println(this.handleY);
+
         if (this.handleY == 0 || this.handleY == -1 || this.handleY == 1) {
             if (this.handleX == 0) {
                 //this.parentBlockEntity.getLevel().playSound(null, this.getParentPos(), SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundSource.BLOCKS);
@@ -99,7 +104,7 @@ public class GearshiftLeverModule extends Module implements IMultiInput, IExtern
     }
 
     @Override
-    public void render(PanelBlockEntity panelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
+    public void render(AbstractPanelBlockEntity abstractPanelBlockEntity, PoseStack poseStack, float v, MultiBufferSource multiBufferSource, int i, int i1) {
         PanelsExpandedPreloadedModels.GEARSHIFT_LEVER_BASE.render(poseStack, multiBufferSource, RenderType.solid(), i);
         poseStack.pushPose();
         poseStack.translate(-Mth.lerp(v, this.lastHandleRenderX, this.handleRenderX), 0, Mth.lerp(v, this.lastHandleRenderY, this.handleRenderY));
@@ -108,8 +113,13 @@ public class GearshiftLeverModule extends Module implements IMultiInput, IExtern
     }
 
     @Override
-    public VoxelShape getShape() {
+    public VoxelShape getVoxelShape() {
         return Block.box(0,0,0,5,1,9);
+    }
+
+    @Override
+    public PolyVoxel getShape() {
+        return new PolyVoxel(0, 0, 5, 9);
     }
 
     @Override

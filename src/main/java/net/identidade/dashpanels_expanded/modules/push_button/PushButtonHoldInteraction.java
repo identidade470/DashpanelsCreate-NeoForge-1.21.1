@@ -1,6 +1,7 @@
 package net.identidade.dashpanels_expanded.modules.push_button;
 
 import moth.boxxed.panels.api.module.interaction.ModuleHoldInteraction;
+import net.minecraft.nbt.CompoundTag;
 
 public class PushButtonHoldInteraction extends ModuleHoldInteraction<PushButtonModule> {
     @Override
@@ -10,11 +11,15 @@ public class PushButtonHoldInteraction extends ModuleHoldInteraction<PushButtonM
 
     @Override
     public void start() {
-        this.update(new Integer[]{1});
+        CompoundTag tag = new CompoundTag();
+        tag.putBoolean("pressed", true);
+        this.update(tag);
     }
 
     @Override
     public void stop() {
-        this.update(new Integer[]{0});
+        CompoundTag tag = new CompoundTag();
+        tag.putBoolean("pressed", false);
+        this.update(tag);
     }
 }

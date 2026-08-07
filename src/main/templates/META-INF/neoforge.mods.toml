@@ -91,7 +91,7 @@ Addon for Dashpanels mod that adds more modules.
 [[dependencies.${mod_id}]]
 modId="dashpanels"
 type="required"
-versionRange="[1.0,)"
+versionRange="[2.0,3.0)"
 ordering="NONE"
 side="BOTH"
 
