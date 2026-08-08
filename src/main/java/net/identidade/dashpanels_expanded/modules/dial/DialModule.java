@@ -38,7 +38,7 @@ public class DialModule extends Module implements IMultiInput, IExternalUpdatabl
     private float lastRenderAngle = 0f;
 
     public DialModule(int x, int y) {
-        super(PanelsExpandedModules.DIAL.get(), x, y, 5, 5);
+        super(PanelsExpandedModules.DIAL.get(), x, y);
     }
 
     @Override

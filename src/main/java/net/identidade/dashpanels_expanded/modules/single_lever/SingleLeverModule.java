@@ -40,7 +40,7 @@ public class SingleLeverModule extends Module implements IExternalUpdatable, IIn
     private int signal = 0;
 
     public SingleLeverModule(int x, int y) {
-        super((ModuleType) PanelsExpandedModules.SINGLE_LEVER.get(), x, y, 2, 6);
+        super((ModuleType) PanelsExpandedModules.SINGLE_LEVER.get(), x, y);
     }
 
     @Override

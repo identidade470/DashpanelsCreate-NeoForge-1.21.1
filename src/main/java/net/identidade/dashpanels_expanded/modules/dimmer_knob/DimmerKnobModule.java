@@ -38,7 +38,7 @@ public class DimmerKnobModule extends Module implements IInput, IExternalUpdatab
     private float lastRenderAngle = 0f;
 
     public DimmerKnobModule(int x, int y) {
-        super(PanelsExpandedModules.DIMMER_KNOB.get(), x, y, 3,3);
+        super(PanelsExpandedModules.DIMMER_KNOB.get(), x, y);
     }
 
     public int getAngle() {

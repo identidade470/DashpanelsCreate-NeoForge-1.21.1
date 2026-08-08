@@ -42,7 +42,7 @@ public class GearshiftLeverModule extends Module implements IMultiInput, IExtern
     private float lastHandleRenderY = 0f;
 
     public GearshiftLeverModule(int x, int y) {
-        super(PanelsExpandedModules.GEARSHIFT_LEVER.get(), x, y, 5, 9);
+        super(PanelsExpandedModules.GEARSHIFT_LEVER.get(), x, y);
     }
 
     @Override

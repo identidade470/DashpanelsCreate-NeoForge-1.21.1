@@ -30,7 +30,7 @@ public class BrakeLeverHoldInteraction extends ModuleHoldInteraction<BrakeLeverM
     public boolean activeMouseMove(double yaw, double pitch) {
         this.val -= (float)(pitch / (double)180.0F);
         this.val = Math.clamp(this.val, 0.0F, 1.0F);
-        this.signal = Math.clamp((long)Math.round(this.val * 15.0F), 0, 15);
+        this.signal = Math.clamp(Math.round(this.val * 15.0F), this.module.outputRange.get().getMinimum(), this.module.outputRange.get().getMaximum());
         if (this.oldSignal != this.signal) {
             CompoundTag tag = new CompoundTag();
             tag.putInt("signal", this.signal);

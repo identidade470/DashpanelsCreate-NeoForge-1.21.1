@@ -5,9 +5,12 @@ import com.mojang.math.Axis;
 import moth.boxxed.panels.api.module.IExternalUpdatable;
 import moth.boxxed.panels.api.module.Module;
 import moth.boxxed.panels.api.module.ModuleType;
+import moth.boxxed.panels.api.module.config.ModuleConfig;
+import moth.boxxed.panels.api.module.config.ModuleConfigValue;
 import moth.boxxed.panels.api.module.io.IInput;
 import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
+import moth.boxxed.panels.util.PolyVoxel;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedHoldInteractions;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
@@ -37,8 +40,16 @@ public class BrakeLeverModule extends Module implements IExternalUpdatable, IInp
     private float renderSignal = 0f;
     private float lastRenderSignal = 0f;
 
+    public final ModuleConfigValue.IntRangeValue outputRange = new ModuleConfigValue.IntRangeValue("output",
+            0, 15, 0, 15).addChangeListener(
+            (oldVal, newVal) -> {
+                this.signal = Math.clamp(newVal.getMinimum(), newVal.getMaximum(), this.signal);
+            }
+    );
+    public final ModuleConfigValue.BooleanValue inverted = new ModuleConfigValue.BooleanValue("inverted", false);
+
     public BrakeLeverModule(int x, int y) {
-        super(PanelsExpandedModules.BRAKE_LEVER.get(), x, y, 4, 5);
+        super(PanelsExpandedModules.BRAKE_LEVER.get(), x, y);
     }
 
     public int getSignal() {
@@ -95,8 +106,15 @@ public class BrakeLeverModule extends Module implements IExternalUpdatable, IInp
     }
 
     @Override
+    public PolyVoxel getShape() {
+        return new PolyVoxel(0,0,4,5);
+    }
+
+    @Override
     public int getAnalog() {
-        return this.signal;
+        int maxValue = this.outputRange.get().getMaximum();
+        int minValue = this.outputRange.get().getMinimum();
+        return this.inverted.get()?maxValue+minValue-this.signal:this.signal;
     }
 
     @Override
@@ -109,5 +127,11 @@ public class BrakeLeverModule extends Module implements IExternalUpdatable, IInp
         this.signal = compoundTag.getInt("signal");
         float f = (float)(this.signal + 15) / 15.0F;
         this.parentBlockEntity.getLevel().playSound((Player)null, this.getParentPos(), SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.1F, f);
+    }
+
+    @Override
+    public void createConfig(ModuleConfig.Builder builder) {
+        builder.add(outputRange);
+        builder.add(inverted);
     }
 }

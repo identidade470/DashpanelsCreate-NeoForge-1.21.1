@@ -38,7 +38,7 @@ public class ValveSwitchModule extends Module implements IExternalUpdatable, IIn
     private int signal = 0;
 
     public ValveSwitchModule(int x, int y) {
-        super(PanelsExpandedModules.VALVE_SWITCH.get(), x, y, 4, 4);
+        super(PanelsExpandedModules.VALVE_SWITCH.get(), x, y);
     }
 
     @Override

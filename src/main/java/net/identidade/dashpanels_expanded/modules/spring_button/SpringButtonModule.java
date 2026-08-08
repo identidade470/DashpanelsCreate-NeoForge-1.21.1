@@ -33,7 +33,7 @@ public class SpringButtonModule extends Module implements IInput, IExternalUpdat
     private float lastPressedRender = 0f;
 
     public SpringButtonModule(int x, int y) {
-        super(PanelsExpandedModules.SPRING_BUTTON.get(), x, y, 5,5);
+        super(PanelsExpandedModules.SPRING_BUTTON.get(), x, y);
     }
 
     @Override

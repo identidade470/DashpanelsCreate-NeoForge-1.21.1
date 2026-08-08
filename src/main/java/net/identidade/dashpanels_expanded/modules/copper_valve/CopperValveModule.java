@@ -40,7 +40,7 @@ public class CopperValveModule extends Module implements IExternalUpdatable, IIn
     private int angle = 0;
 
     public CopperValveModule(int x, int y) {
-        super((ModuleType) PanelsExpandedModules.COPPER_VALVE.get(), x, y, 4, 4);
+        super((ModuleType) PanelsExpandedModules.COPPER_VALVE.get(), x, y);
     }
 
     @Override

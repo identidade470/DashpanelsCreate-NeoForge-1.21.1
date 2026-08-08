@@ -38,7 +38,7 @@ public class PushButtonModule extends Module implements IInput, IExternalUpdatab
     private float lastPressedValue = 0f;
 
     public PushButtonModule(int x, int y) {
-        super(PanelsExpandedModules.PUSH_BUTTON.get(), x, y, 8,8);
+        super(PanelsExpandedModules.PUSH_BUTTON.get(), x, y);
     }
 
     @Override

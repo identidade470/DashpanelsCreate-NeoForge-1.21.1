@@ -38,7 +38,7 @@ public class SmallSwitchModule extends Module implements IExternalUpdatable, IMu
     private float lastAngleRender = 0f;
 
     public SmallSwitchModule(int x, int y) {
-        super(PanelsExpandedModules.SMALL_SWITCH.get(), x, y, 2, 2);
+        super(PanelsExpandedModules.SMALL_SWITCH.get(), x, y);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class SmallSwitchModule extends Module implements IExternalUpdatable, IMu
     }
     @Override
     public PolyVoxel getShape() {
-        return new PolyVoxel(0, 0, 1, 1);
+        return new PolyVoxel(0, 0, 2, 2);
     }
 
     @Override

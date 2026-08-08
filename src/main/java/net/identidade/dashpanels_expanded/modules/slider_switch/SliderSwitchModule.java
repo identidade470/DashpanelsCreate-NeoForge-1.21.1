@@ -97,7 +97,7 @@ public class SliderSwitchModule extends Module implements IInput, IModuleLuaObje
 
     @Override
     public PolyVoxel getShape() {
-        return new PolyVoxel(0, 0, 1, 8);
+        return new PolyVoxel(0, 0, 2, 8);
     }
 
     @Override

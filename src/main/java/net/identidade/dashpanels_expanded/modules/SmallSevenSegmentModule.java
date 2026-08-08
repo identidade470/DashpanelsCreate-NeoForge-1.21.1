@@ -37,7 +37,7 @@ public class SmallSevenSegmentModule extends Module implements IModuleLuaObject,
     public DyeColor color;
 
     public SmallSevenSegmentModule(int x, int y) {
-        super(PanelsExpandedModules.SMALL_SEVEN_SEGMENT.get(), x, y, 6,2);
+        super(PanelsExpandedModules.SMALL_SEVEN_SEGMENT.get(), x, y);
         this.color = DyeColor.WHITE;
     }
 

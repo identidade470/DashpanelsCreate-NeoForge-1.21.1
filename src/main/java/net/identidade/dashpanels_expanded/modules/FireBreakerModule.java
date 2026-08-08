@@ -1,6 +1,8 @@
 package net.identidade.dashpanels_expanded.modules;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import moth.boxxed.panels.api.module.config.ModuleConfig;
+import moth.boxxed.panels.api.module.config.ModuleConfigValue;
 import moth.boxxed.panels.api.module.io.IInput;
 import moth.boxxed.panels.api.module.Module;
 import moth.boxxed.panels.api.module.ModuleType;
@@ -25,11 +27,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.function.BiConsumer;
 
 public class FireBreakerModule extends Module implements IInput, IModuleLuaObject {
+    private final ModuleConfigValue.IntValue redstoneOutput = new ModuleConfigValue.IntValue("output", 15, 0, 15);
+    private final ModuleConfigValue.BooleanValue inverted = new ModuleConfigValue.BooleanValue("inverted", false);
 
     public boolean activated = false;
 
     public FireBreakerModule(int x, int y) {
-        super(PanelsExpandedModules.FIRE_BREAKER.get(), x, y, 4,6);
+        super(PanelsExpandedModules.FIRE_BREAKER.get(), x, y);
     }
 
     @Override
@@ -55,7 +59,9 @@ public class FireBreakerModule extends Module implements IInput, IModuleLuaObjec
 
     @Override
     public int getAnalog() {
-        return activated?15:0;
+        int outputValue = this.redstoneOutput.get();
+        boolean state = this.inverted.get() != this.activated;
+        return state?outputValue:0;
     }
 
     @Override
@@ -77,5 +83,11 @@ public class FireBreakerModule extends Module implements IInput, IModuleLuaObjec
     @Override
     public void getMethods(BiConsumer<String, ReturnMethod<?>> biConsumer) {
         biConsumer.accept("getState", (IModuleLuaObject.ReturnMethod) (args) -> this.activated);
+    }
+
+    @Override
+    public void createConfig(ModuleConfig.Builder builder) {
+        builder.add(redstoneOutput);
+        builder.add(inverted);
     }
 }

@@ -3,11 +3,14 @@ package net.identidade.dashpanels_expanded.modules.control_valve;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import moth.boxxed.panels.api.module.IExternalUpdatable;
+import moth.boxxed.panels.api.module.config.ModuleConfig;
+import moth.boxxed.panels.api.module.config.ModuleConfigValue;
 import moth.boxxed.panels.api.module.io.IInput;
 import moth.boxxed.panels.api.module.Module;
 import moth.boxxed.panels.api.module.ModuleType;
 import moth.boxxed.panels.api.panel.AbstractPanelBlockEntity;
 import moth.boxxed.panels.compat.computercraft.IModuleLuaObject;
+import moth.boxxed.panels.util.PolyVoxel;
 import net.identidade.dashpanels_expanded.PanelsExpandedPreloadedModels;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedHoldInteractions;
 import net.identidade.dashpanels_expanded.registry.PanelsExpandedModules;
@@ -38,8 +41,17 @@ public class ControlValveModule extends Module implements IExternalUpdatable, II
     private float lastRenderHeight = 0.0F;
     private int angle = 0;
 
+    public final ModuleConfigValue.IntRangeValue angleRange = new ModuleConfigValue.IntRangeValue("angle",
+            0, 360, 0, 360).addChangeListener(
+            (oldVal, newVal) -> {
+                this.angle = Math.clamp(newVal.getMinimum(), newVal.getMaximum(), this.angle);
+            }
+    );
+    public final ModuleConfigValue.BooleanValue inverted = new ModuleConfigValue.BooleanValue("inverted", false);
+    public final ModuleConfigValue.IntRangeValue outputRange = new ModuleConfigValue.IntRangeValue("output", 0, 15, 0, 15);
+
     public ControlValveModule(int x, int y) {
-        super((ModuleType) PanelsExpandedModules.CONTROL_VALVE.get(), x, y, 7, 7);
+        super((ModuleType) PanelsExpandedModules.CONTROL_VALVE.get(), x, y);
     }
 
     @Override
@@ -112,12 +124,21 @@ public class ControlValveModule extends Module implements IExternalUpdatable, II
 
     @Override
     public int getAnalog() {
-        return Math.round(Mth.map((float)this.angle, 0.0F, 360.0F, 0.0F, 15.0F));
+        int maxValue = this.outputRange.get().getMaximum();
+        int minValue = this.outputRange.get().getMinimum();
+        int value = Math.round(Mth.map((float)this.angle, 0.0F, 360.0F, minValue, maxValue));
+
+        return this.inverted.get()?maxValue+minValue-value:value;
     }
 
     @Override
     public VoxelShape getVoxelShape() {
         return Block.box(0,0,0,7,1,7);
+    }
+
+    @Override
+    public PolyVoxel getShape() {
+        return new PolyVoxel(0,0,7,7);
     }
 
     @Override
@@ -139,5 +160,12 @@ public class ControlValveModule extends Module implements IExternalUpdatable, II
                 }
             }
         });
+    }
+
+    @Override
+    public void createConfig(ModuleConfig.Builder builder) {
+        builder.add(inverted);
+        builder.add(angleRange);
+        builder.add(outputRange);
     }
 }

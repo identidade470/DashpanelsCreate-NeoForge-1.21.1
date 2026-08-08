@@ -1,6 +1,8 @@
 package net.identidade.dashpanels_expanded.modules;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import moth.boxxed.panels.api.module.config.ModuleConfig;
+import moth.boxxed.panels.api.module.config.ModuleConfigValue;
 import moth.boxxed.panels.api.module.io.IInput;
 import moth.boxxed.panels.api.module.Module;
 import moth.boxxed.panels.api.module.ModuleType;
@@ -25,10 +27,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.function.BiConsumer;
 
 public class FlipSwitchModule extends Module implements IInput, IModuleLuaObject {
+    private final ModuleConfigValue.IntValue redstoneOutput = new ModuleConfigValue.IntValue("output", 15, 0, 15);
+    private final ModuleConfigValue.BooleanValue inverted = new ModuleConfigValue.BooleanValue("inverted", false);
+
     private boolean switchState = false;
 
     public FlipSwitchModule(int x, int y) {
-        super((ModuleType) PanelsExpandedModules.FLIP_SWITCH.get(), x, y, 2, 2);
+        super((ModuleType) PanelsExpandedModules.FLIP_SWITCH.get(), x, y);
     }
 
     @Override
@@ -71,7 +76,9 @@ public class FlipSwitchModule extends Module implements IInput, IModuleLuaObject
 
     @Override
     public int getAnalog() {
-        return this.switchState?15:0;
+        int outputValue = this.redstoneOutput.get();
+        boolean state = this.inverted.get() != this.switchState;
+        return state?outputValue:0;
     }
 
     @Override
@@ -92,5 +99,11 @@ public class FlipSwitchModule extends Module implements IInput, IModuleLuaObject
                 }
             }
         });
+    }
+
+    @Override
+    public void createConfig(ModuleConfig.Builder builder) {
+        builder.add(inverted);
+        builder.add(redstoneOutput);
     }
 }

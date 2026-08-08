@@ -26,7 +26,7 @@ public class ControlValveHoldInteraction extends ModuleHoldInteraction<ControlVa
     public boolean activeMouseMove(double yaw, double pitch) {
         this.val += (float)(yaw / (double)360.0F);
         this.val = Math.clamp(this.val, 0.0F, 1.0F);
-        this.angle = Math.clamp((long)Math.round(this.val * 360.0F), 0, 360);
+        this.angle = Math.clamp((long)Math.round(this.val * 360.0F), this.module.angleRange.get().getMinimum(), this.module.angleRange.get().getMaximum());
         if (this.oldAngle != this.angle) {
             CompoundTag tag = new CompoundTag();
             tag.putInt("angle", this.angle);

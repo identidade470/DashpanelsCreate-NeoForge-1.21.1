@@ -24,7 +24,7 @@ import java.util.function.BiConsumer;
 
 public class StickyNoteModule extends Module {
     public StickyNoteModule(int x, int y) {
-        super((ModuleType) PanelsExpandedModules.STICKY_NOTE.get(), x, y, 3, 4);
+        super((ModuleType) PanelsExpandedModules.STICKY_NOTE.get(), x, y);
     }
 
     @Override
